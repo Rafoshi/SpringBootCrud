@@ -33,21 +33,30 @@ public class UserRepositoryTests {
     }
 
     @Test
-    public void testListAll(){
+    public void testListAll() {
         Iterable<UserModel> users = repo.findAll();
         Assertions.assertThat(users).hasSizeGreaterThan(0);
 
-        for( UserModel user : users){
+        for (UserModel user : users) {
             System.out.println(user);
         }
     }
 
     @Test
-    public void testGet(){
+    public void testGet() {
         Integer userId = 1;
         Optional<UserModel> optionalUser = repo.findById(userId);
         Assertions.assertThat(optionalUser).isPresent();
 
         System.out.println(optionalUser.get());
+    }
+
+    @Test
+    public void testDelete() {
+        Integer userId = 2;
+        repo.deleteById(userId);
+
+        Optional<UserModel> optionalUserModel = repo.findById(userId);
+        Assertions.assertThat(optionalUserModel).isNotPresent();
     }
 }
